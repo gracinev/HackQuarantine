@@ -76,7 +76,7 @@
                                 <p><span style="font-weight: bold">Item Name: </span>@item.Name</p>
                                 <!--We will have to figure out a way for these values to be calculated-->
                                 <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
-                                <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
+                                <p><span style="font-weight: bold">Price: </span>$@item.Price</p>
                                 @if (item.SaleStatus == SaleStatus.LowQuantity)
                                 {
                                     <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
