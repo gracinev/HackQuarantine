@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<HackQuarantine.Models.Store>
 @{
     ViewData["Title"] = "Privacy Policy";
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -8,25 +9,36 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Stores</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
-    @foreach (Store store in Model)
-    {
-        <p>@store.Name</p>
-        <p>@store.Address</p>
-        <p>@store.Phone</p>
-        @foreach (var item in store.Items)
+    <div class="panel-group">
+        @foreach (Store store in Model)
         {
-            <p style="margin-left: 20px;">@item.Name</p>
-            <p style="margin-left: 20px;">@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
-            <p style="margin-left: 20px;">$@item.Price</p>
-            @if (item.SaleStatus == SaleStatus.MediumQuantity)
-            {
-                <p style="margin-left: 20px;">Medium Quantity</p>
-            }
-            <p><a>Add a comment</a></p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1">@store.Name</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @foreach (Item item in store.Items)
+                    {
+                        <p><span style="font-weight: bold">Item Name: </span>@item.Name</p>
+                        <!--We will have to figure out a way for these values to be calculated-->
+                        <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
+                        <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
+                        @if (item.SaleStatus == SaleStatus.MediumQuantity)
+                        {
+                            <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
+                        }
+                        <button class="btn btn-primary">Add a comment</button>
+                    }
+                </div>
+            </div>
+        </div>
         }
-    }
+    </div>
 </body>
 </html>
