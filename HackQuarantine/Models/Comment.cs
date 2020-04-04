@@ -8,6 +8,7 @@ namespace HackQuarantine.Models
     public class Comment
     {
         public DateTime Date { get; set; }
+        public string Notes { get; set; }
         public Item Item { get; set; }
         public Store Store { get; set; }
         public User User { get; set; }

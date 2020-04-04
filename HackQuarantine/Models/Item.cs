@@ -15,6 +15,7 @@ namespace HackQuarantine.Models
     {
         public string Name { get; set; }
         public bool InStock { get; set; }
+        public double Price { get; set; }
         public SaleStatus SaleStatus { get; set; }
         public List<Comment> Comments { get; set; }
 
