@@ -47,7 +47,45 @@ namespace HackQuarantine.Models
                                 new Comment()
                                 {
                                     Date = DateTime.Now,
-                                    Notes = "This is cool!"
+                                    Notes = "This is cool!",
+                                    Item = new Item() {
+                                        Name = "Soap",
+                                        InStock = true,
+                                        SaleStatus = SaleStatus.MediumQuantity,
+                                        Price = 10.99
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                new Store()
+                {
+                    Id = 1,
+                    Name = "Target",
+                    Address = "Somewhere in California",
+                    Phone = "1234567890",
+                    Items = new List<Item>()
+                    {
+                        new Item()
+                        {
+                            Name = "Toilet Paper",
+                            InStock = false,
+                            SaleStatus = SaleStatus.LowQuantity,
+                            Price = 8.99,
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    Date = DateTime.Now,
+                                    Notes = "Test Comment",
+                                    Item = new Item()
+                                    {
+                                        Name = "Toilet Paper",
+                                        InStock = false,
+                                        SaleStatus = SaleStatus.LowQuantity,
+                                        Price = 8.99
+                                    }
                                 }
                             }
                         }

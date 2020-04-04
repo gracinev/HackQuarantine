@@ -20,11 +20,38 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Add a Comment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input class="form-control" id="price" />
+                        </div>
+                        <div class="form-group">
+                            <label for="saleStatus">Sale Status?</label>
+                            <select class="form-control" id="inStock">
+                                <option value="" selected disabled hidden>--Choose here--</option>
+                                <option value="1">Low Quantity</option>
+                                <option value="2">Medium Quantity</option>
+                                <option value="3">High Quantity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inStock">In Stock?</label>
+                            <select class="form-control" id="inStock">
+                                <option value="" selected disabled hidden>--Choose here--</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -50,9 +77,42 @@
                                 <!--We will have to figure out a way for these values to be calculated-->
                                 <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
                                 <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
-                                @if (item.SaleStatus == SaleStatus.MediumQuantity)
+                                @if (item.SaleStatus == SaleStatus.LowQuantity)
+                                {
+                                    <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
+                                }
+                                else if (item.SaleStatus == SaleStatus.MediumQuantity)
                                 {
                                     <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
+                                }
+                                else if (item.SaleStatus == SaleStatus.HighQuantity)
+                                {
+                                    <p><span style="font-weight: bold">Price: </span>High Quantity</p>
+                                }
+                                @foreach (var comment in item.Comments)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Comment</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p><span style="font-weight: bold">Date Reported: </span>@comment.Date</p>
+                                            <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
+                                            <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
+                                            @if (item.SaleStatus == SaleStatus.LowQuantity)
+                                            {
+                                                <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
+                                            }
+                                            else if (item.SaleStatus == SaleStatus.MediumQuantity)
+                                            {
+                                                <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
+                                            }
+                                            else if (item.SaleStatus == SaleStatus.HighQuantity)
+                                            {
+                                                <p><span style="font-weight: bold">Price: </span>High Quantity</p>
+                                            }
+                                        </div>
+                                    </div>
                                 }
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#storeModal">Add a comment</button>
                             }
