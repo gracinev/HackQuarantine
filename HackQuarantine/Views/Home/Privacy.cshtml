@@ -1,9 +1,8 @@
-﻿@model IEnumerable<HackQuarantine.Models.Store>
+﻿@model HackQuarantine.Models.CommentRequest
+@using HackQuarantine.Models;
 @{
     ViewData["Title"] = "Privacy Policy";
-    Layout = "_Layout";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,33 +23,36 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="commentForm" asp-action="Privacy" method="post">
+                        <div asp-validation-summary="All"></div>
+                        <input type="hidden" asp-for="StoreId" id="storeId" />
+                        <input type="hidden" asp-for="ItemId" id="itemId" />
                         <div class="form-group">
-                            <label for="price">Price</label>
-                            <input class="form-control" id="price" />
+                            <label asp-for="Price">Price</label>
+                            <input class="form-control" asp-for="Price" />
                         </div>
                         <div class="form-group">
-                            <label for="saleStatus">Sale Status?</label>
-                            <select class="form-control" id="inStock">
-                                <option value="" selected disabled hidden>--Choose here--</option>
-                                <option value="1">Low Quantity</option>
-                                <option value="2">Medium Quantity</option>
-                                <option value="3">High Quantity</option>
+                            <label asp-for="SaleStatus">Sale Status?</label>
+                            <select class="form-control" asp-for="SaleStatus">
+                                <option value="" selected>--Choose here--</option>
+                                <option value="LowQuantity">Low Quantity</option>
+                                <option value="MediumQuantity">Medium Quantity</option>
+                                <option value="HighQuantity">High Quantity</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="inStock">In Stock?</label>
-                            <select class="form-control" id="inStock">
-                                <option value="" selected disabled hidden>--Choose here--</option>
+                            <label asp-for="InStock">In Stock?</label>
+                            <select class="form-control" asp-for="InStock">
+                                <option value="" selected>--Choose here--</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="notes">Notes</label>
-                            <textarea class="form-control" id="notes"></textarea>
+                            <label asp-for="Notes">Notes</label>
+                            <textarea class="form-control" asp-for="Notes"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" data-save="modal">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -60,71 +62,74 @@
 
         </div>
     </div>
-        <div class="panel-group">
-            @foreach (Store store in Model)
-            {
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1">@store.Name</a>
-                        </h4>
-                    </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            @foreach (Item item in store.Items)
+    <div class="panel-group">
+        @foreach (Store store in Repository._stores)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">@store.Name</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (Item item in store.Items)
+                        {
+                            <p><span style="font-weight: bold">Item Name: </span>@item.Name</p>
+                            <!--We will have to figure out a way for these values to be calculated-->
+                            <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
+                            <p><span style="font-weight: bold">Price: </span>$@item.Price</p>
+                            @if (item.SaleStatus == SaleStatus.LowQuantity)
                             {
-                                <p><span style="font-weight: bold">Item Name: </span>@item.Name</p>
-                                <!--We will have to figure out a way for these values to be calculated-->
-                                <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
-                                <p><span style="font-weight: bold">Price: </span>$@item.Price</p>
-                                @if (item.SaleStatus == SaleStatus.LowQuantity)
-                                {
-                                    <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
-                                }
-                                else if (item.SaleStatus == SaleStatus.MediumQuantity)
-                                {
-                                    <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
-                                }
-                                else if (item.SaleStatus == SaleStatus.HighQuantity)
-                                {
-                                    <p><span style="font-weight: bold">Price: </span>High Quantity</p>
-                                }
-                                @foreach (var comment in item.Comments)
-                                {
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Comment</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <p><span style="font-weight: bold">Date Reported: </span>@comment.Date</p>
-                                            <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
-                                            <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
-                                            @if (item.SaleStatus == SaleStatus.LowQuantity)
-                                            {
-                                                <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
-                                            }
-                                            else if (item.SaleStatus == SaleStatus.MediumQuantity)
-                                            {
-                                                <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
-                                            }
-                                            else if (item.SaleStatus == SaleStatus.HighQuantity)
-                                            {
-                                                <p><span style="font-weight: bold">Price: </span>High Quantity</p>
-                                            }
-                                        </div>
-                                    </div>
-                                }
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#storeModal">Add a comment</button>
+                                <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
                             }
-                        </div>
+                            else if (item.SaleStatus == SaleStatus.MediumQuantity)
+                            {
+                                <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
+                            }
+                            else if (item.SaleStatus == SaleStatus.HighQuantity)
+                            {
+                                <p><span style="font-weight: bold">Price: </span>High Quantity</p>
+                            }
+                            @foreach (var comment in item.Comments)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Comment</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p><span style="font-weight: bold">Date Reported: </span>@comment.Date</p>
+                                        <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
+                                        <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
+                                        @if (item.SaleStatus == SaleStatus.LowQuantity)
+                                        {
+                                            <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
+                                        }
+                                        else if (item.SaleStatus == SaleStatus.MediumQuantity)
+                                        {
+                                            <p><span style="font-weight: bold">Price: </span>Medium Quantity</p>
+                                        }
+                                        else if (item.SaleStatus == SaleStatus.HighQuantity)
+                                        {
+                                            <p><span style="font-weight: bold">Price: </span>High Quantity</p>
+                                        }
+                                    </div>
+                                    <p><span style="font-weight: bold">Notes: </span>@comment.Notes</p>
+                                </div>
+                            }
+                            <button onclick="addComment(@store.Id, @item.Id)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#storeModal" data-url="@Url.Action("CommentRequest")">Add a comment</button>
+                            @*<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#storeModal" data-url="@Url.Action("CommentRequest")">Add a comment</button>*@
+                        }
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
+    </div>
 </body>
 </html>
 <script>
-    $('#addComment').on('click', function () {
-        $('#storeModal').modal('show'); 
-    }); 
+    function addComment(storeId, itemId) {
+        $('#storeId').val(storeId);
+        $('#itemId').val(itemId);
+    }
 </script>

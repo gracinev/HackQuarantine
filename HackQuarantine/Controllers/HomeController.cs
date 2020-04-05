@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HackQuarantine.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace HackQuarantine.Controllers
 {
@@ -16,15 +17,43 @@ namespace HackQuarantine.Controllers
             return View();
         }
 
-        public ViewResult Privacy()
+        [HttpGet]
+        public IActionResult Privacy()
         {
-            return View(Repository.GetStores());
+            return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //public IActionResult CommentRequest()
+        //{
+        //    var model = new CommentRequest { };
+        //    return PartialView("CommentModalPartial", model);
+        //}
+
+        //[HttpPost]
+        //public IActionResult CommentRequest(CommentRequest model)
+        //{
+        //    return PartialView("CommentModalPartial", model);
+        //}
+
+
+        [HttpPost]
+        public ViewResult Privacy(CommentRequest request)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                Repository.AddComment(request);
+                return View();
+            }
+            else
+            {
+                return View("Index");
+            }
         }
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }

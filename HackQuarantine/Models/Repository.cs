@@ -7,24 +7,38 @@ namespace HackQuarantine.Models
 {
     public static class Repository
     {
-        private static List<Store> _stores = new List<Store>();
+        public static List<Store> _stores = GetTempStores().ToList();
         public static int RequestCount { get; set; } = 0;
-        public static IEnumerable<Store> Stores
+
+        public static void AddComment(CommentRequest comment)
         {
-            get
+            Store store = _stores.FirstOrDefault(s => s.Id == comment.StoreId);
+            Item item = store.Items.FirstOrDefault(i => i.Id == comment.ItemId);
+            item.Price = double.Parse(comment.Price.ToString());
+            switch (comment.SaleStatus)
             {
-                return _stores;
+                case "LowQuantity":
+                    item.SaleStatus = SaleStatus.LowQuantity;
+                    break;
+                case "MediumQuantity":
+                    item.SaleStatus = SaleStatus.MediumQuantity;
+                    break;
+                case "HighQuantity":
+                    item.SaleStatus = SaleStatus.HighQuantity;
+                    break;
             }
+            item.InStock = comment.InStock == "true" ? true : false;
+            Comment tempComment = new Comment() { 
+                Id = comment.Id,
+                Date = DateTime.Now,
+                Notes = comment.Notes,
+                Item = item,
+                Store = store
+            };
+            item.Comments.Add(tempComment);
         }
 
-        public static void AddStore(Store store)
-        {
-            _stores.Add(store);
-            store.Id = RequestCount;
-            RequestCount += 1;
-        }
-
-        public static IEnumerable<Store> GetStores()
+        public static IEnumerable<Store> GetTempStores()
         {
             return new List<Store>
             {
