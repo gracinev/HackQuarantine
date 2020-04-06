@@ -1,0 +1,105 @@
+﻿@model IEnumerable<HackQuarantine.Models.Store>
+@using HackQuarantine.Models;
+@{
+    ViewData["Title"] = "Result";
+    ViewData["Search"] = "Toilet Paper";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Stores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form action="/action_page.php">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="search" />
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row row-no-gutters">
+            <div class="col-xs-12 col-md-11">
+                <button class="btn btn-default btn-sm" type="button">
+                    Keyword
+                </button>
+                <button class="btn btn-default btn-sm" type="button">
+                    Keyword
+                </button>
+                <button class="btn btn-default btn-sm" type="button">
+                    Keyword
+                </button>
+                <button class="btn btn-default btn-sm" type="button">
+                    Keyword
+                </button>
+            </div>
+            <div class="col-xs-offset-9 col-xs-3 col-md-1">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                    Filter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseFilter">
+        <div class="card card-body">
+            Filter into something...
+        </div>
+    </div>
+    <h3>Result in San Francisco</h3>
+    <br />
+
+    @foreach (Store store in Model)
+    {
+        foreach (Item item in store.Items)
+        {
+            if (item.Name == ViewData["Search"].ToString()) {
+            <div style="margin-bottom: 10px" class="container borderline">
+                <div class=" row row-no-gutters">
+                    <div class="col-sx-12 col-md-9">
+                        <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+
+                        <p><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></p>
+                        <p>@store.Address</p>
+                        <p>@store.Phone</p>
+                        <a href="https://@store.Website" target="_blank">@store.Website</a>
+                    </div>
+                    <div class="col-sx-12 col-md-3">
+                        <div class="container">
+                            <div class="row vcenter display-flex">
+                                <div class="col-xs-2 col-md-12">
+                                    <h5>
+                                        <b>#Unit</b>
+                                        <small>Available</small>
+                                    </h5>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <button class="btn btn-danger btn-xs">
+                                        <small>Stock Status</small>
+                                    </button>
+                                </div>
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-6 col-md-12 small">
+                                    <p><small># comments & # photos <span class="glyphicon glyphicon-chevron-right btn-sm"></span></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    }
+
+
+</body>
+</html>

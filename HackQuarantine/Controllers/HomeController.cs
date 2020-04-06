@@ -25,6 +25,11 @@ namespace HackQuarantine.Controllers
             return View(Repository._stores);
         }
 
+        public IActionResult Result()
+        {
+            return View(Repository._stores);
+        }
+
         public IActionResult AddComment(string storeId, string itemId)
         {
             var x = int.Parse(storeId);

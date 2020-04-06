@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,8 +10,11 @@ namespace HackQuarantine.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string StoreType { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
+        [DataType(DataType.Url)]
+        public string Website { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longtitude { get; set; }
         public List<Item> Items { get; set; }
