@@ -1,0 +1,57 @@
+﻿@model HackQuarantine.Models.ItemRequest
+@{
+    ViewData["Title"] = "ItemRequest";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Item Form</title>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h1>Item Request Form</h1></div>
+        <div class="panel-body">
+            <form asp-action="ItemForm" method="post">
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="StoreId" id="storeId" />
+                <div class="form-group">
+                    <label asp-for="ItemName">Item Name</label>
+                    <input class="form-control" asp-for="ItemName" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price">Price</label>
+                    <input class="form-control" asp-for="Price" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SaleStatus">Sale Status?</label>
+                    <select class="form-control" asp-for="SaleStatus">
+                        <option value="" selected>--Choose here--</option>
+                        <option value="LowQuantity">Low Quantity</option>
+                        <option value="MediumQuantity">Medium Quantity</option>
+                        <option value="HighQuantity">High Quantity</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InStock">In Stock?</label>
+                    <select class="form-control" asp-for="InStock">
+                        <option value="" selected>--Choose here--</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Notes">Notes</label>
+                    <textarea class="form-control" asp-for="Notes"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -15,6 +15,13 @@
 <body>
     @foreach (Store store in Model)
     {
+    <form asp-action="AddItem" method="post">
+        <input style="display: none;" type="text" value="@store.Id" name="storeId" />
+        <div>
+            <p>Don't see an item on the list?</p>
+            <button type="submit" class="btn btn-primary">Add it here!</button>
+        </div>
+    </form>
         <h4>@store.Name</h4>
         @foreach (Item item in store.Items)
         {
@@ -43,7 +50,7 @@
                     <div class="panel-body">
                         <p><span style="font-weight: bold">Date Reported: </span>@comment.Date</p>
                         <p><span style="font-weight: bold">Stock: </span>@(item.InStock == true ? "In stock!" : "Out of stock :(")</p>
-                        <p><span style="font-weight: bold">Quantity: </span>$@item.Price</p>
+                        <p><span style="font-weight: bold">Price: </span>$@item.Price</p>
                         @if (item.SaleStatus == SaleStatus.LowQuantity)
                         {
                             <p><span style="font-weight: bold">Price: </span>Low Quantity</p>
@@ -60,7 +67,7 @@
                     <p><span style="font-weight: bold">Notes: </span>@comment.Notes</p>
                 </div>
             }
-            <form asp-action="Privacy" method="post">
+            <form asp-action="AddComment" method="post">
                 <input style="display: none;" type="text" value="@store.Id" name="storeId" />
                 <input style="display: none;" type="text" value="@item.Id" name="itemId" />
                 <button type="submit" class="btn btn-primary">Add a comment</button>

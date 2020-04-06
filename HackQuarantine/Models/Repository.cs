@@ -8,14 +8,19 @@ namespace HackQuarantine.Models
     public static class Repository
     {
         public static List<Store> _stores = GetTempStores().ToList();
-        public static int RequestCount { get; set; } = 0;
+        public static int ItemRequestCount { get; set; } = 3;
 
-        public static void AddComment(CommentRequest comment)
+        public static void AddItem(ItemRequest itemRequest)
         {
-            Store store = _stores.FirstOrDefault(s => s.Id == comment.StoreId);
-            Item item = store.Items.FirstOrDefault(i => i.Id == comment.ItemId);
-            item.Price = double.Parse(comment.Price.ToString());
-            switch (comment.SaleStatus)
+            Store store = _stores.FirstOrDefault(s => s.Id == itemRequest.StoreId);
+            Item item = new Item()
+            {
+                Id = 3,
+                Name = itemRequest.ItemName,
+                Comments = new List<Comment>()
+            };
+            item.Price = double.Parse(itemRequest.Price.ToString());
+            switch (itemRequest.SaleStatus)
             {
                 case "LowQuantity":
                     item.SaleStatus = SaleStatus.LowQuantity;
@@ -27,11 +32,43 @@ namespace HackQuarantine.Models
                     item.SaleStatus = SaleStatus.HighQuantity;
                     break;
             }
-            item.InStock = comment.InStock == "true" ? true : false;
-            Comment tempComment = new Comment() { 
-                Id = comment.Id,
+            item.InStock = itemRequest.InStock == "true" ? true : false;
+            Comment comment = new Comment()
+            {
                 Date = DateTime.Now,
-                Notes = comment.Notes,
+                Notes = itemRequest.Notes,
+                Item = item,
+                Store = store
+            };
+
+            store.Items.Add(item);
+            item.Comments.Add(comment);
+            ItemRequestCount++;
+        }
+
+
+        public static void AddComment(CommentRequest commentRequest)
+        {
+            Store store = _stores.FirstOrDefault(s => s.Id == commentRequest.StoreId);
+            Item item = store.Items.FirstOrDefault(i => i.Id == commentRequest.ItemId);
+            item.Price = double.Parse(commentRequest.Price.ToString());
+            switch (commentRequest.SaleStatus)
+            {
+                case "LowQuantity":
+                    item.SaleStatus = SaleStatus.LowQuantity;
+                    break;
+                case "MediumQuantity":
+                    item.SaleStatus = SaleStatus.MediumQuantity;
+                    break;
+                case "HighQuantity":
+                    item.SaleStatus = SaleStatus.HighQuantity;
+                    break;
+            }
+            item.InStock = commentRequest.InStock == "true" ? true : false;
+            Comment tempComment = new Comment() { 
+                Id = commentRequest.Id,
+                Date = DateTime.Now,
+                Notes = commentRequest.Notes,
                 Item = item,
                 Store = store
             };
@@ -52,6 +89,7 @@ namespace HackQuarantine.Models
                     {
                         new Item()
                         {
+                            Id = 0,
                             Name = "Soap",
                             InStock = true,
                             SaleStatus = SaleStatus.MediumQuantity,
@@ -83,6 +121,7 @@ namespace HackQuarantine.Models
                     {
                         new Item()
                         {
+                            Id = 2,
                             Name = "Toilet Paper",
                             InStock = false,
                             SaleStatus = SaleStatus.LowQuantity,

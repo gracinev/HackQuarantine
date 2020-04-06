@@ -13,25 +13,52 @@ namespace HackQuarantine.Controllers
     public class HomeController : Controller
     {
         static int[] idArray;
+        private static int StoreId { get; set; }
 
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
         public IActionResult Privacy()
         {
             return View(Repository._stores);
         }
 
-        [HttpPost]
-        public IActionResult Privacy(string storeId, string itemId)
+        public IActionResult AddComment(string storeId, string itemId)
         {
             var x = int.Parse(storeId);
             var y = int.Parse(itemId);
             idArray = new int[] { x, y };
             return View("CommentForm");
+        }
+
+        [HttpPost]
+        public IActionResult AddItem(string storeId)
+        {
+            StoreId = int.Parse(storeId);
+            return View("ItemForm");
+        }
+
+        [HttpGet]
+        public IActionResult ItemForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult ItemForm(ItemRequest itemRequest)
+        {
+            itemRequest.StoreId = StoreId;
+            if (ModelState.IsValid)
+            {
+                Repository.AddItem(itemRequest);
+                return View("Privacy", Repository._stores);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpGet]
@@ -48,7 +75,7 @@ namespace HackQuarantine.Controllers
             if (ModelState.IsValid)
             {
                 Repository.AddComment(commentRequest);
-                return View("Privacy");
+                return View("Privacy", Repository._stores);
             }
             else
             {
