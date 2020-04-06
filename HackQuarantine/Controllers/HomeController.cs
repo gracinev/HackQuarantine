@@ -17,6 +17,11 @@ namespace HackQuarantine.Controllers
             return View();
         }
 
+        public IActionResult Result()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Privacy()
         {
