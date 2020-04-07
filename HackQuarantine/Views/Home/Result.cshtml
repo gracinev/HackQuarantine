@@ -11,9 +11,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Stores</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -67,39 +67,38 @@
             {
                 if (item.Name.ToLower().Contains(search) || store.Name.ToLower().Contains(search) || String.IsNullOrEmpty(search))
                 {
-                    <div style="margin-bottom: 10px" class="container borderline">
-                        <div id="card" class=" row row-no-gutters">
-                            <div class="col-sx-12 col-md-9">
-                                <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
-
-                                <p><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></p>
-                                <p>@store.Address</p>
-                                <p>@store.Phone</p>
-                                <a href="https://@store.Website" target="_blank">@store.Website</a>
-                            </div>
-                            <div class="col-sx-12 col-md-3">
-                                <div class="container">
-                                    <div class="row vcenter display-flex">
-                                        <div class="col-xs-2 col-md-12">
-                                            <h5>
-                                                <b>#Unit</b>
-                                                <small>Available</small>
-                                            </h5>
-                                        </div>
-                                        <div class="col-xs-3 col-md-3">
-                                            <button class="btn btn-danger btn-xs">
-                                                <small>Stock Status</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-xs-1"></div>
-                                        <div class="col-xs-6 col-md-12 small">
-                                            <p><small># comments & # photos <span class="glyphicon glyphicon-chevron-right btn-sm"></span></small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="card">
+    <div class="card-header">
+        <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+    </div>
+    <div style="margin-bottom: 10px" class="container borderline">
+        <div id="card" class="list-group list-group-flush">
+            <div class="list-group-item">
+                <p><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></p>
+                <p>@store.Address</p>
+                <p>@store.Phone</p>
+                <a href="https://@store.Website" target="_blank">@store.Website</a>
+            </div>
+            <div class="list-group-item ">
+                    <div class="row">
+                        <div class="col-xs-3 col-md-3">
+                            <button class="btn btn-danger btn-xs">
+                                <small>Stock Status</small>
+                            </button>
+                        </div>
+                        <div class="col-md-offset-1 col-md-6 small ">
+                            
+                                <p><small># comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
+                                </svg></small></p>
+                            
                         </div>
                     </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
                 }
             }
         }

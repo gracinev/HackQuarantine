@@ -26,6 +26,8 @@ namespace HackQuarantine.Controllers
             return View(Repository._stores);
         }
 
+
+
         public IActionResult Search(string search, string city)
         {
             if (city == null)
