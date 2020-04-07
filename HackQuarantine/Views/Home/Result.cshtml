@@ -22,15 +22,17 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search" name="search" id="search" />
                 <div class="input-group-btn">
-                    <button id="searchButton" class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    <button class="btn btn-secondary" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
             </div>
         </form>
     </div>
     <br />
     <div class="container">
-        <div class="row row-no-gutters">
-            <div class="col-xs-12 col-md-11">
+        <div class="row row-">
+            <div class="col-md-11 col-xs-12">
                 <button class="btn btn-default btn-sm" type="button">
                     Keyword
                 </button>
@@ -44,7 +46,8 @@
                     Keyword
                 </button>
             </div>
-            <div class="col-xs-offset-9 col-xs-3 col-md-1">
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-md-1 offset-md-0 col-xs-1 offset-xs-11">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter
                 </button>
@@ -82,16 +85,15 @@
             </div>
             <div class="list-group-item">
                     <div class="row justify-content-md-start">
-                        <div class="col-xs-4">
+                        <div class="col-5">
                             <button class="btn btn-danger btn-sm">
                                 <small>Stock Status</small>
                             </button>
                         </div>
-                        <div class="offset-1 col-xs-3">
-                                <p><small># comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <div class="col-6 text-nowrap">
+                                # comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
-                                </svg></small></p>
-                            
+                                </svg>
                         </div>
                     </div>
                 
