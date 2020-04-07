@@ -23,12 +23,17 @@
 
 </head>
 <body>
-    <div id="map"></div>
-    <form asp-action="Search" method="post">
-        <div asp-validation-summary="All"></div>
+
+    <div>
         <input id="search" name="search" type="text" placeholder="Enter search..." />
         <input id="city" name="city" type="text" placeholder="Enter city..." />
         <button onclick="Search()" id="searchButton" type="submit" class="btn btn-info">Search</button>
+    </div>
+    <br />
+    <div id="map"></div>
+    <form asp-action="Search" method="post">
+        <div asp-validation-summary="All"></div>
+        
     </form>
 </body>
 </html>
