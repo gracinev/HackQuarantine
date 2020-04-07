@@ -1,6 +1,6 @@
 ﻿<! –– How do I pass a reponse from google maps to the model? -->
 
-@model IEnumerable<WhatGoesHere>
+@model IEnumerable<String>
 @{
     ViewData["Title"] = "Testing Google Maps";
     Layout = "_Layout";
@@ -17,7 +17,7 @@
 <body>
     @foreach (var store in Model)
     {
-        @store.placeId;
+        @store;
     }
 </body>
 </html>

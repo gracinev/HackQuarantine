@@ -133,7 +133,8 @@ namespace HackQuarantine.Controllers
             if (!searchResponse.Status.HasValue || searchResponse.Status.Value != Status.Ok || !searchResponse.Results.Any())
                 return new BadRequestResult();
 
-            
+            // How do I pass response to View()
+            // I can't find documentation on this nuget package 
             return View(searchResponse.Results);
         }
     }

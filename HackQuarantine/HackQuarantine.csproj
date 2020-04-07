@@ -622,4 +622,7 @@
 
 
 
+  <ItemGroup>
+    <Folder Include="Views\Store\" />
+  </ItemGroup>
 </Project>
