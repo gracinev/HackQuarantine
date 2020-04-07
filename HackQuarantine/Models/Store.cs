@@ -12,11 +12,13 @@ namespace HackQuarantine.Models
         public string Name { get; set; }
         public string StoreType { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
         public string Phone { get; set; }
         [DataType(DataType.Url)]
         public string Website { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longtitude { get; set; }
+        public int Rating { get; set; }
         public List<Item> Items { get; set; }
 
         public Store()

@@ -20,10 +20,22 @@
 </head>
 <body>
     <div id="map"></div>
+    <form asp-action="Search" method="post">
+        <div asp-validation-summary="All"></div>
+        <input id="search" name="search" type="text" placeholder="Enter search..." />
+        <input id="city" name="city" type="text" placeholder="Enter city..." />
+        <button onclick="Search()" id="searchButton" type="submit" class="btn btn-info">Search</button>
+    </form>
 </body>
 </html>
 
 <script>
+    function Search() {
+        var search = $('#search').val();
+        var city = $('#city').val();
+        sessionStorage.setItem('search', search);
+        sessionStorage.setItem('city', city);
+    };
 
     var map;
     var service;

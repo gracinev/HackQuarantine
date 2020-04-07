@@ -13,6 +13,7 @@ namespace HackQuarantine.Controllers
     public class HomeController : Controller
     {
         static int[] idArray;
+        public string[] SearchRequest { get; set; }
         private static int StoreId { get; set; }
 
         public IActionResult Index()
@@ -25,9 +26,20 @@ namespace HackQuarantine.Controllers
             return View(Repository._stores);
         }
 
+        public IActionResult Search(string search, string city)
+        {
+            if (city == null)
+            {
+                ModelState.AddModelError(String.Empty, "Please search a city.");
+                return View("Index");
+            }
+            SearchRequest = new string[] { search, city };
+            return View("Result", SearchRequest);
+        }
+
         public IActionResult Result()
         {
-            return View(Repository._stores);
+            return View(SearchRequest);
         }
 
         public IActionResult AddComment(string storeId, string itemId)

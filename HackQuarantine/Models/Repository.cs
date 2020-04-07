@@ -83,8 +83,10 @@ namespace HackQuarantine.Models
                 {
                     Id = 0,
                     Name = "Costco",
+                    City = "San Francisco",
                     Address = "123 Huckleberry Drive, New York City, New York",
                     Phone = "1234567890",
+                    Rating = 3,
                     Items = new List<Item>()
                     {
                         new Item()
@@ -115,8 +117,10 @@ namespace HackQuarantine.Models
                 {
                     Id = 1,
                     Name = "Target",
+                    City = "San Francisco",
                     Address = "Somewhere in California",
                     Phone = "1234567890",
+                    Rating = 5,
                     Items = new List<Item>()
                     {
                         new Item()
