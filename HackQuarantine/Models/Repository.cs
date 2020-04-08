@@ -104,7 +104,7 @@ namespace HackQuarantine.Models
                                     Notes = "This is cool!",
                                     Item = new Item() {
                                         Name = "Soap",
-                                        InStock = true,
+                                        InStock = false,
                                         SaleStatus = SaleStatus.MediumQuantity,
                                         Price = 10.99
                                     }

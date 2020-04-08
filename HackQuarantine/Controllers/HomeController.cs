@@ -27,7 +27,7 @@ namespace HackQuarantine.Controllers
         }
 
 
-
+        [HttpPost]
         public IActionResult Search(string search, string city)
         {
             if (city == null)

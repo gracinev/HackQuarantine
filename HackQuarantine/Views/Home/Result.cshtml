@@ -22,7 +22,7 @@
         <form asp-action="Search" method="post">
             <div class="input-group">
                 <input type="hidden" class="form-control" placeholder="Search" name="city" id="city" value="@citySearch" />
-                <input type="text" class="form-control" placeholder="Search" name="search" id="search" value="@search"/>
+                <input type="text" class="form-control" placeholder="Search" name="search" id="search" value="@search" />
                 <div class="input-group-btn">
                     <button class="btn btn-secondary" type="submit">
                         <i class="fa fa-search"></i>
@@ -34,12 +34,12 @@
     <br />
     <div class="container">
         <div class="row row-">
-            <div class="col-md-11 col-xs-12">
-                <button class="btn btn-default btn-sm" type="button">
-                    Keyword
+            <div id="filterMenu" class="col-md-11 col-xs-12">
+                <button id="keyword1" class="btn btn-default btn-sm" type="button">
+                    In Stock
                 </button>
-                <button class="btn btn-default btn-sm" type="button">
-                    Keyword
+                <button id="keyword2" class="btn btn-default btn-sm" type="button">
+                    Sold Out
                 </button>
                 <button class="btn btn-default btn-sm" type="button">
                     Keyword
@@ -58,7 +58,7 @@
     </div>
 
     <div class="collapse" id="collapseFilter">
-        <div class="card card-body">
+        <div class="card card-body" id="collapseDiv">
             Filter into something...
         </div>
     </div>
@@ -74,6 +74,7 @@
                 if (item.Name.ToLower().Contains(search) || store.Name.ToLower().Contains(search) || String.IsNullOrEmpty(search))
                 {
                     <div id="card" class="card">
+                        <input id="inStock" type="hidden" value="@item.InStock.ToString()" />
                         <div class="card-header">
                             <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
                         </div>
@@ -111,14 +112,65 @@
 
 </body>
 </html>
-@*<script>
+<script>
     $(document).ready(function () {
-        $('#search').val(window.sessionStorage.getItem('search'));
-        $("#search").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("div#card").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        var inStock = "False";
+        var soldOut = "False";
+        $('#keyword1').on('click', function () {
+            if ($("#collapseDiv").find("#keyword1").length > 0) {
+                inStock = "False";
+                $("#keyword1").prependTo("#filterMenu");
+            }
+            else if ($("#filterMenu").find("#keyword1").length > 0) {
+                inStock = "True";
+                $("#keyword1").prependTo("#collapseDiv");
+            }
+            $('.card #inStock').each(function (index, value) {
+                if (inStock == 'True' && soldOut == "True") {
+                    $(this).parent().css("display", "block");
+                }
+                else if (value.value == "False" && inStock == "True" && soldOut == "False") {
+                    $(this).parent().css("display", "none");
+                }
+                else if (value.value == 'False' && soldOut == "True") {
+                    $(this).parent().css("display", "none");
+                }
+                else {
+                    $(this).parent().css("display", "block");
+                }
             });
         });
+        $('#keyword2').on('click', function () {
+            if ($("#collapseDiv").find("#keyword2").length > 0) {
+                soldOut = "False";
+                $("#keyword2").prependTo("#filterMenu");
+            }
+            else if ($("#filterMenu").find("#keyword2").length > 0) {
+                soldOut = "True";
+                $("#keyword2").prependTo("#collapseDiv");
+            }
+            $('.card #inStock').each(function (index, value) {
+                if (inStock == 'True' && soldOut == "True") {
+                    $(this).parent().css("display", "block");
+                }
+                else if (value.value == "True" && inStock == "True" && soldOut == "False") {
+                    $(this).parent().css("display", "none");
+                }
+                else if (value.value == 'False' && soldOut == "True") {
+                    $(this).parent().css("display", "none");
+                }
+                else {
+                    $(this).parent().css("display", "block");
+                }
+                
+            });
+        });
+        //$('#search').val(window.sessionStorage.getItem('search'));
+        //$("#search").on("keyup", function () {
+        //    var value = $(this).val().toLowerCase();
+        //    $("div#card").filter(function () {
+        //        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //    });
+        //});
     });
-</script>*@
+</script>
