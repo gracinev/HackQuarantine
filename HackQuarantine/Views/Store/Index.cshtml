@@ -3,9 +3,19 @@
     Layout = "_Layout";
 }
 
-<h1>Search for stuff near you</h1>
+<style>
+    #map {
+        width: 100%;
+        height: 400px;
+        background-color: grey;
+    }
+</style>
 
+<h1>Search for stuff near you</h1>
 <div id="map"></div>
+
+<button class="btn btn-primary" onclick="getLocation()">Find Stores Near Me</button>
+<p id="myLocation"></p>
 
 <form asp-action="Search" method="post">
     <div asp-validation-summary="All"></div>
@@ -13,3 +23,66 @@
     <input id="city" name="city" type="text" placeholder="Enter city..." />
     <button onclick="Search()" id="searchButton" type="submit" class="btn btn-info">Search</button>
 </form>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcdspTAODl0dMGPbpkStxmhYRqroYwG0Y&libraries=places&callback=initMap" async defer></script>
+<script>
+    var map;
+    var service;
+    var infowindow;
+
+    function initMap() {
+        var sydney = new google.maps.LatLng(40.7128, -74.0060);
+
+        infowindow = new google.maps.InfoWindow();
+
+        map = new google.maps.Map(
+            document.getElementById('map'), { center: sydney, zoom: 15 });
+
+        var request = {
+            location: sydney,
+            radius: '500',
+            keyword: ['grocery store']
+        };
+
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+    }
+
+    function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+        }
+    }
+
+    function createMarker(place) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+        });
+    }
+
+    var x = document.getElementById("myLocation");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
+     
+    }
+</script>
+
+
+
