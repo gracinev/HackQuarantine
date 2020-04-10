@@ -7,6 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HackQuarantine.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Web;
+using System.Net;
+using Newtonsoft.Json;
+
+// Classes we'll use from the GoogleApi package maybe?
+using GoogleApi;
+using GoogleApi.Entities.Common;
+using GoogleApi.Entities.Common.Enums;
+using GoogleApi.Entities.Places.Details.Request;
+using GoogleApi.Entities.Places.Photos.Request;
+using GoogleApi.Entities.Places.Search.NearBy.Request;
+// End of Google API classes
 
 namespace HackQuarantine.Controllers
 {
@@ -14,11 +26,43 @@ namespace HackQuarantine.Controllers
     {
         static int[] idArray;
         public string[] SearchRequest { get; set; }
+        public static string City { get; set; }
         private static int StoreId { get; set; }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddUser([FromBody]List<GoogleStore> stores)
+        {
+            if (stores != null)
+            {
+                foreach (var store in stores)
+                {
+                    Repository.AddStore(store);
+                }
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetCity([FromBody]string city)
+        {
+            if (city != null)
+            {
+                City = city;
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
         }
 
         public IActionResult Privacy()
@@ -41,10 +85,16 @@ namespace HackQuarantine.Controllers
         {
             if (city == null)
             {
-                ModelState.AddModelError(String.Empty, "Please search a city.");
-                return View("Index");
+                //ModelState.AddModelError(String.Empty, "Please search a city.");
+                SearchRequest = new string[] { search, City };
+                //return View("Index");
             }
-            SearchRequest = new string[] { search, city };
+            else
+            {
+                SearchRequest = new string[] { search, city };
+            }
+            //SearchRequest = new string[] { search, city };
+            //SearchRequest = new string[] { search, City };
             return View("Result", SearchRequest);
         }
 
@@ -109,6 +159,32 @@ namespace HackQuarantine.Controllers
             {
                 return View();
             }
+        }
+
+
+        // Trying some Google Maps stuff below
+        // From https://github.com/vivet/GoogleApi
+        // From https://www.jerriepelser.com/tutorials/airport-explorer/google-places/retrieving/
+        // but it's for Razor pages?
+        // Looked at https://www.youtube.com/watch?v=3NLfhEjq9Tk
+        // GET Home/StoreDetail?
+        public async Task<IActionResult> StoreDetail()
+        {
+            // For testing the call
+            double latitude = 37.424831;
+            double longitude = -121.867796;
+            var searchResponse = await GooglePlaces.NearBySearch.QueryAsync(new PlacesNearBySearchRequest
+            {
+                Key = "AIzaSyBqAlYsHSmQ7giaR-rSd9tLRZhztugU004",
+                Location = new GoogleApi.Entities.Places.Search.NearBy.Request.Location(latitude, longitude),
+                Radius = 10000
+            });
+
+            if (!searchResponse.Status.HasValue || searchResponse.Status.Value != Status.Ok || !searchResponse.Results.Any())
+                return new BadRequestResult();
+
+            
+            return View(searchResponse.Results);
         }
     }
 }

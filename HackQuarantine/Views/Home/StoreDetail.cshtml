@@ -1,0 +1,23 @@
+﻿<! –– How do I pass a reponse from google maps to the model? -->
+
+@*@model IEnumerable<WhatGoesHere>*@
+@{
+    ViewData["Title"] = "Testing Google Maps";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Stores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    @foreach (var store in Model)
+    {
+        @store.placeId;
+    }
+</body>
+</html>
