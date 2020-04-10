@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewData["Title"] = "UserSetting";
+}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Stores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Setting</h5>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapsePasswordChange" role="button" aria-expanded="false" aria-controls="collapsePasswordChange">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="fas fa-user-circle"></i>
+                                        </div>
+                                        <div class="col">
+                                            Change User Password
+                                        </div>
+
+                                        <div class="col-1">
+                                            <i class="fas fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapsePasswordChange">
+                                    <div class="card card-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Current Password" aria-label="Password" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="New Password" aria-label="Password" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default btn-sm btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                                <div class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseEmailChange" role="button" aria-expanded="false" aria-controls="collapseEmailChange">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="far fa-envelope"></i>
+                                        </div>
+                                        <div class="col">
+                                            Change E-mail Address
+                                        </div>
+
+                                        <div class="col-1">
+                                            <i class="fas fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapseEmailChange">
+                                    <div class="card card-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="New Email Address" aria-label="Email" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default btn-sm btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                                <div class="list-group-item list-group-item-action">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="far fa-bookmark"></i>
+                                        </div>
+                                        <div class="col">
+                                            Bookmarks
+                                        </div>
+
+                                        <div class="col-1">
+                                            <i class="fas fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group-item list-group-item-action">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="far fa-question-circle"></i>
+                                        </div>
+                                        <div class="col">
+                                            Customer Support
+                                        </div>
+
+                                        <div class="col-1">
+                                            <i class="fas fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group-item list-group-item-action" data-toggle="collapse" href="#accountTermination" role="button" aria-expanded="false" aria-controls="accountTermination">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="fas fa-times"></i>
+                                        </div>
+                                        <div class="col">
+                                            Terminate Account
+                                        </div>
+
+                                        <div class="col-1">
+                                            <i class="fas fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="accountTermination">
+                                    <div class="card card-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <br />
+                                        <button class="btn btn-default btn-sm btn-danger">Terminate Account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

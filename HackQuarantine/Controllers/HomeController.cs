@@ -35,6 +35,16 @@ namespace HackQuarantine.Controllers
             return View();
         }
 
+        public IActionResult UserEntrance()
+        {
+            return View();
+        }
+
+        public IActionResult UserSetting()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AddStores([FromBody]List<GoogleStore> stores)
         {
