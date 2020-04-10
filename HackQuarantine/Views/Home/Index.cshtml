@@ -44,6 +44,7 @@
     var pos;
     var request;
     var place;
+    var city;
 
     @*$(document).ready(function () {
 
@@ -100,6 +101,7 @@
                     lng: position.coords.longitude
                 };
                 console.log("getLocation:" + pos.lat + "," + pos.lng);
+                console.log(pos);
                 var marker = new google.maps.Marker({
                     position: pos,
                     map: map,
@@ -110,6 +112,13 @@
                 infoWindow.open(map);
                 map.setCenter(pos);
                 getNearByPlaces(pos);
+                var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&key=AIzaSyBcdspTAODl0dMGPbpkStxmhYRqroYwG0Y&language=en';
+
+                $.getJSON(GEOCODING).done(function (location) {
+                    // Get City
+                    console.log("LOCATION: " + JSON.stringify(location.results[0].address_components[2].long_name));
+                    city = location.results[0].address_components[2].long_name;
+                });
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -160,6 +169,20 @@
                 "Name" : "Rami",
                 "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}]
             };
+
+            $.ajax({
+                url: "@Url.Action("GetCity")",
+                type: "POST",
+                data: JSON.stringify(city),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+            },
+                success: function (response) {
+                    alert(response);
+                }
+            });
 
             $.ajax({
                 url: "@Url.Action("AddUser")",

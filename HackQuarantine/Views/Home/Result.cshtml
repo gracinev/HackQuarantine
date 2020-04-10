@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Result";
     string search = Model[0] == null ? "" : Model[0].ToLower();
-    string citySearch = Model[1].ToLower();
+    string citySearch = Model[1];
 }
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <!DOCTYPE html>
@@ -82,7 +82,24 @@
                 <div style="margin-bottom: 10px" class="container borderline">
                     <div class="list-group list-group-flush">
                         <div class="list-group-item">
-                            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+                            <p>
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    if (i == Math.Floor(store.Rating) && store.Rating % 1 != 0)
+                                    {
+                                        <i class="fas fa-star-half"></i>
+                                    }
+                                    else if (store.Rating > i)
+                                    {
+                                        <i class="fas fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star"></i>
+                                    }
+                                }
+                            </p>
+                            @*<p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>*@
                             <p>@store.Address</p>
                             <p>@store.Phone</p>
                             <a href="https://@store.Website" target="_blank">@store.Website</a>

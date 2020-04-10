@@ -26,6 +26,7 @@ namespace HackQuarantine.Controllers
     {
         static int[] idArray;
         public string[] SearchRequest { get; set; }
+        public static string City { get; set; }
         private static int StoreId { get; set; }
 
         public IActionResult Index()
@@ -50,6 +51,20 @@ namespace HackQuarantine.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult GetCity([FromBody]string city)
+        {
+            if (city != null)
+            {
+                City = city;
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View(Repository._stores);
@@ -65,10 +80,16 @@ namespace HackQuarantine.Controllers
         {
             if (city == null)
             {
-                ModelState.AddModelError(String.Empty, "Please search a city.");
-                return View("Index");
+                //ModelState.AddModelError(String.Empty, "Please search a city.");
+                SearchRequest = new string[] { search, City };
+                //return View("Index");
             }
-            SearchRequest = new string[] { search, city };
+            else
+            {
+                SearchRequest = new string[] { search, city };
+            }
+            //SearchRequest = new string[] { search, city };
+            //SearchRequest = new string[] { search, City };
             return View("Result", SearchRequest);
         }
 
