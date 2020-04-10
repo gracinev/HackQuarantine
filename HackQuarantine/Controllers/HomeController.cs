@@ -31,6 +31,11 @@ namespace HackQuarantine.Controllers
             return View();
         }
 
+        public IActionResult Store()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Search(string search, string city)
         {
