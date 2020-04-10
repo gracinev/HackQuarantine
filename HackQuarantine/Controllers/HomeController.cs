@@ -35,7 +35,7 @@ namespace HackQuarantine.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser([FromBody]List<GoogleStore> stores)
+        public ActionResult AddStores([FromBody]List<GoogleStore> stores)
         {
             if (stores != null)
             {
