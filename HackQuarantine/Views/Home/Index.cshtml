@@ -38,6 +38,37 @@
 </html>
 
 <script>
+    var map;
+    var service;
+    var infowindow;
+    var pos;
+    var request;
+    var place;
+
+    @*$(document).ready(function () {
+
+        console.log(resultsList);
+
+        var jsonObject = {
+                "Name" : "Rami",
+                "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}]
+            };
+
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+            },
+                success: function (response) {
+                    alert(response);
+                }
+            });
+    });*@
+
     function Search() {
         var search = $('#search').val();
         var city = $('#city').val();
@@ -45,45 +76,151 @@
         sessionStorage.setItem('city', city);
     };
 
-    var map;
-    var service;
-    var infowindow;
-
     function initMap() {
-        var sydney = new google.maps.LatLng(40.7128, -74.0060);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: -34.397,
+                lng: 150.644
+            },
+            zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        getLocation();
+        getNearByPlaces();
+        callback();
+    }
+
+    function getLocation() {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                console.log("getLocation:" + pos.lat + "," + pos.lng);
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"
+                })
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+                getNearByPlaces(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
 
         infowindow = new google.maps.InfoWindow();
+    }
 
-        map = new google.maps.Map(
-            document.getElementById('map'), { center: sydney, zoom: 15 });
-
-        var request = {
-            location: sydney,
+    function getNearByPlaces(pos) {
+        request = {
+            location: pos,
             radius: '500',
-            keyword: ['grocery store']
+            query: 'grocery'
         };
 
         service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, callback);
+        service.textSearch(request, callback);
     }
 
     function callback(results, status) {
+        var resultJson = [];
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+            var bounds = new google.maps.LatLngBounds();
             for (var i = 0; i < results.length; i++) {
-                createMarker(results[i]);
+                //console.log(JSON.stringify(results[i]));
+                place = results[i];
+                //console.log(place.place_id);
+                //console.log(place.name);
+                //console.log(place.formatted_address);
+                //console.log(place.rating);
+                var obj = {
+                    "PlaceId": place.place_id,
+                    "Name": place.name,
+                    "Address": place.formatted_address,
+                    "Rating": place.rating
+                }
+                resultJson.push(obj);
+                var mark = createMarker(results[i]);
+                bounds.extend(mark.getPosition());
             }
-        }
+            console.log(resultJson);
+            map.fitBounds(bounds);
+
+            var jsonObject = {
+                "Name" : "Rami",
+                "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}]
+            };
+
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+                data: JSON.stringify(resultJson),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+            },
+                success: function (response) {
+                    alert(response);
+                }
+            });
+
+        } else console.log("callback.status=" + status);
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
     }
 
     function createMarker(place) {
         var marker = new google.maps.Marker({
             map: map,
-            position: place.geometry.location
+            position: place.geometry.location,
+            icon: "http://maps.google.com/mapfiles/ms/micons/red.png"
         });
 
         google.maps.event.addListener(marker, 'click', function () {
             infowindow.setContent(place.name);
             infowindow.open(map, this);
         });
+        return marker;
     }
+
+    $(document).ready(function () {
+
+        console.log(resultsList);
+
+        var jsonObject = {
+                "Name" : "Rami",
+                "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}]
+            };
+
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+            },
+                success: function (response) {
+                    alert(response);
+                }
+            });
+    });
 </script>

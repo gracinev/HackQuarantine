@@ -9,6 +9,7 @@ using HackQuarantine.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Web;
 using System.Net;
+using Newtonsoft.Json;
 
 // Classes we'll use from the GoogleApi package maybe?
 using GoogleApi;
@@ -30,6 +31,23 @@ namespace HackQuarantine.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddUser([FromBody]List<GoogleStore> stores)
+        {
+            if (stores != null)
+            {
+                foreach (var store in stores)
+                {
+                    Repository.AddStore(store);
+                }
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
         }
 
         public IActionResult Privacy()

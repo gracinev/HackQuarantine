@@ -10,6 +10,18 @@ namespace HackQuarantine.Models
         public static List<Store> _stores = GetTempStores().ToList();
         public static int ItemRequestCount { get; set; } = 3;
 
+        public static void AddStore(GoogleStore storeRequest)
+        {
+            Store store = new Store()
+            {
+                PlaceId = storeRequest.PlaceId,
+                Name = storeRequest.Name,
+                Address = storeRequest.Address,
+                Rating = storeRequest.Rating
+            };
+            _stores.Add(store);
+        }
+
         public static void AddItem(ItemRequest itemRequest)
         {
             Store store = _stores.FirstOrDefault(s => s.Id == itemRequest.StoreId);

@@ -67,46 +67,47 @@
 
     @foreach (Store store in Repository._stores)
     {
-        if (store.City.ToLower().Contains(citySearch))
+        //if (store.City.ToLower().Contains(citySearch))
+        //if (store.Items != null)
+        //{
+        //foreach (Item item in store.Items)
+        //{
+        if (/*store.Items.Name.Contains(search) || store.Name.ToLower().Contains(search) || */ String.IsNullOrEmpty(search))
         {
-            foreach (Item item in store.Items)
-            {
-                if (item.Name.ToLower().Contains(search) || store.Name.ToLower().Contains(search) || String.IsNullOrEmpty(search))
-                {
-                    <div id="card" class="card">
-                        <input id="inStock" type="hidden" value="@item.InStock.ToString()" />
-                        <div class="card-header">
-                            <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+            <div id="card" class="card">
+                <input id="inStock" type="hidden" @*value="@item.InStock.ToString()"*@ />
+                <div class="card-header">
+                    <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+                </div>
+                <div style="margin-bottom: 10px" class="container borderline">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+                            <p>@store.Address</p>
+                            <p>@store.Phone</p>
+                            <a href="https://@store.Website" target="_blank">@store.Website</a>
                         </div>
-                        <div style="margin-bottom: 10px" class="container borderline">
-                            <div class="list-group list-group-flush">
-                                <div class="list-group-item">
-                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-                                    <p>@store.Address</p>
-                                    <p>@store.Phone</p>
-                                    <a href="https://@store.Website" target="_blank">@store.Website</a>
+                        <div class="list-group-item">
+                            <div class="row justify-content-md-start">
+                                <div class="col-5">
+                                    <button class="btn btn-danger btn-sm">
+                                        <small>Stock Status</small>
+                                    </button>
                                 </div>
-                                <div class="list-group-item">
-                                    <div class="row justify-content-md-start">
-                                        <div class="col-5">
-                                            <button class="btn btn-danger btn-sm">
-                                                <small>Stock Status</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-6 text-nowrap">
-                                            # comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-
+                                <div class="col-6 text-nowrap">
+                                    # comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
+                                    </svg>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                }
-            }
+                </div>
+            </div>
         }
+        //}
+        //}
     }
 
 
@@ -162,7 +163,7 @@
                 else {
                     $(this).parent().css("display", "block");
                 }
-                
+
             });
         });
         //$('#search').val(window.sessionStorage.getItem('search'));
