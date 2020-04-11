@@ -20,27 +20,69 @@
             background-color: grey;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
         body {
+            display: table;
             background-image: url('/img/Home_BG.svg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
         }
+
+        header {
+            display: none;
+        }
+
+        #containerMiddle {
+            display: table-cell;
+            vertical-align: middle;
+        }
     </style>
 
 </head>
 <body>
-    @*<img id="backgroundSvg" src="~/img/Home_BG.svg" />*@
-    <div>
-        <img src="~/img/logo.png" />
-        <form asp-action="Result" method="post">
-            @*<div asp-validation-summary="All"></div>*@
-            @*<input id="search" name="search" type="text" placeholder="Enter search..." />*@
-            <input id="city" name="city" type="text" placeholder="Enter city..." />
-            <button @*onclick="Search()"*@ id="searchButton" type="submit" class="btn btn-info">Search</button>
+    <div style="margin: 0 auto; height: 100%; text-align: center">
+        <img style="margin-bottom: 10px; width: 50%;" src="~/img/logo.png" />
+        <h5 style="margin-bottom: 50px;">Check where items are in stock.</h5>
+        <form style="margin-bottom: 125px; display: table; width: 100%;" asp-action="Result" method="post">
+            <input style="display: table-cell; vertical-align: middle; width: 50%; margin-right: 20px;" id="city" name="city" type="text" placeholder="Enter city..." />
+            <button style="display: table-cell; vertical-align: middle; width: 20%" id="searchButton" type="submit" class="btn btn-info">Search</button>
         </form>
     </div>
-    <br />
+    <div style="text-align: center;" class="container">
+        <div style="margin-bottom: 20px;" class="row">
+            <div class="col">
+                <i class="fa-3x fas fa-carrot"></i>
+                <p>Food</p>
+            </div>
+            <div class="col">
+                <i class="fa-3x fas fa-tools"></i>
+                <p>Tools</p>
+            </div>
+            <div class="col">
+                <i class="fa-3x fas fa-paperclip"></i>
+                <p>Supplies</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <i class="fa-3x far fa-heart"></i>
+                <p>Popular</p>
+            </div>
+            <div class="col">
+                <i class="fa-3x fas fa-exclamation-triangle"></i>
+                <p>Low Stock</p>
+            </div>
+            <div class="col">
+                <i class="fa-3x fas fa-bolt"></i>
+                <p>Selling Fast</p>
+            </div>
+        </div>
+    </div>
     <div style="display: none;" id="map"></div>
 </body>
 </html>
