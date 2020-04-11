@@ -10,6 +10,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcdspTAODl0dMGPbpkStxmhYRqroYwG0Y&libraries=places&callback=initMap" async defer></script>
@@ -26,64 +27,67 @@
         }
 
         body {
-            display: table;
             background-image: url('/img/Home_BG.svg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
         }
 
-        header {
-            display: none;
-        }
-
-        #containerMiddle {
-            display: table-cell;
-            vertical-align: middle;
-        }
+ 
     </style>
 
 </head>
 <body>
-    <div style="margin: 0 auto; height: 100%; text-align: center">
-        <img style="margin-bottom: 10px; width: 50%;" src="~/img/logo.png" />
-        <h5 style="margin-bottom: 50px;">Check where items are in stock.</h5>
-        <form style="margin-bottom: 125px; display: table; width: 100%;" asp-action="Result" method="post">
-            <input style="display: table-cell; vertical-align: middle; width: 50%; margin-right: 20px;" id="city" name="city" type="text" placeholder="Enter city..." />
-            <button style="display: table-cell; vertical-align: middle; width: 20%" id="searchButton" type="submit" class="btn btn-info">Search</button>
+    <div class="container">
+        <div style="margin: 5% auto; height: 100%; text-align: center">
+            <img style="margin: 5% 0 10px 0; width: 75%; max-width:700px;" src="~/img/logo.png" />
+            <h5 style="margin-bottom: 50px;">Check where items are in stock.</h5>
+        </div>
+        <form asp-action="Result" method="post">
+            <div class="container" style="align-items: center;">
+                <div class="input-group ">
+                    <input class="form-control" id="city" name="city" type="text" placeholder=" Enter city..." />
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-light btn-purple">Search</button>
+                    </div>
+                </div>
+            </div>
         </form>
-    </div>
-    <div style="text-align: center;" class="container">
-        <div style="margin-bottom: 20px;" class="row">
-            <div class="col">
-                <i class="fa-3x fas fa-carrot"></i>
-                <p>Food</p>
+        <br />
+        <br />
+        <br />
+        <div style="text-align: center;" class="container">
+            <div style="margin-bottom: 20px;" class="row">
+                <div class="col">
+                    <i class="fa-3x fas fa-carrot"></i>
+                    <p>Food</p>
+                </div>
+                <div class="col">
+                    <i class="fa-3x fas fa-tools"></i>
+                    <p>Tools</p>
+                </div>
+                <div class="col">
+                    <i class="fa-3x fas fa-paperclip"></i>
+                    <p>Supplies</p>
+                </div>
             </div>
-            <div class="col">
-                <i class="fa-3x fas fa-tools"></i>
-                <p>Tools</p>
-            </div>
-            <div class="col">
-                <i class="fa-3x fas fa-paperclip"></i>
-                <p>Supplies</p>
+            <div class="row">
+                <div class="col">
+                    <i class="fa-3x far fa-heart"></i>
+                    <p>Popular</p>
+                </div>
+                <div class="col">
+                    <i class="fa-3x fas fa-exclamation-triangle"></i>
+                    <p>Low Stock</p>
+                </div>
+                <div class="col">
+                    <i class="fa-3x fas fa-bolt"></i>
+                    <p>Selling Fast</p>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <i class="fa-3x far fa-heart"></i>
-                <p>Popular</p>
-            </div>
-            <div class="col">
-                <i class="fa-3x fas fa-exclamation-triangle"></i>
-                <p>Low Stock</p>
-            </div>
-            <div class="col">
-                <i class="fa-3x fas fa-bolt"></i>
-                <p>Selling Fast</p>
-            </div>
-        </div>
+        <div style="display: none;" id="map"></div>
     </div>
-    <div style="display: none;" id="map"></div>
 </body>
 </html>
 

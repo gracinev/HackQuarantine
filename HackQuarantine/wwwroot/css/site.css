@@ -105,3 +105,21 @@ body {
     background-color: #ff8d71;
     color: white;
 }
+
+.btn-purple {
+    background-color: #5E307E;
+    color: white;
+}
+
+.navbar {
+    background-color: #f18702;
+}
+
+.searchbar {
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 166, 91, 0.6);
+}
+
+.container .borderline {
+    background-color: #fff3f0;
+}

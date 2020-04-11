@@ -19,18 +19,18 @@
 <body>
     <div class="container">
         @*<form asp-action="Search" method="post">*@
+        <br />
         <div class="input-group">
             <input type="hidden" class="form-control" placeholder="Search" name="city" id="city" value="@citySearch" />
             <input type="text" class="form-control" placeholder="Search stores..." name="search" id="search" />
             <div class="input-group-btn">
-                <button class="btn btn-secondary" type="submit">
+                <button class="btn btn-custom" type="submit">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
         </div>
         @*</form>*@
     </div>
-    <br />
     <div class="container">
         <div class="row">
             <div id="filterMenu" class="col-md-11 col-xs-12">
@@ -62,7 +62,6 @@
         </div>
     </div>
     <h3>Result in @citySearch</h3>
-    <br />
 
     @foreach (Store store in Repository._stores)
     {
