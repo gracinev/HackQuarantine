@@ -88,3 +88,11 @@ body {
 .mt-100 {
     margin-top: 100px
 }
+
+.list-group-item {
+    background-color: transparent;
+}
+
+.card .card-header {
+    background-color: #FDD1C7;
+}
