@@ -40,7 +40,7 @@ namespace HackQuarantine.Controllers
         double longitude = -121.867796;
         var searchResponse = await GooglePlaces.NearBySearch.QueryAsync(new PlacesNearBySearchRequest
         {
-            Key = "AIzaSyBqAlYsHSmQ7giaR-rSd9tLRZhztugU004",
+            Key = API_KEY,
             Location = new GoogleApi.Entities.Places.Search.NearBy.Request.Location(latitude, longitude),
             Radius = 10000
         });
