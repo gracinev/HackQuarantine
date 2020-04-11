@@ -87,20 +87,6 @@ namespace HackQuarantine.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult GetCity([FromBody]string city)
-        {
-            if (city != null)
-            {
-                City = city;
-                return Json("Success");
-            }
-            else
-            {
-                return Json("An Error Has occoured");
-            }
-        }
-
         public IActionResult Privacy()
         {
             return View(Repository._stores);
@@ -143,9 +129,10 @@ namespace HackQuarantine.Controllers
             return RedirectToAction("Result");
         }
 
-        public IActionResult Result()
+        [HttpPost]
+        public IActionResult Result(string city)
         {
-            return View(SearchRequest);
+            return View("Result", city);
         }
 
         public IActionResult AddComment(string storeId, string itemId)

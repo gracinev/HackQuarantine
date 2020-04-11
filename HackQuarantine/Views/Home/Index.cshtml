@@ -19,21 +19,29 @@
             height: 400px;
             background-color: grey;
         }
+
+        body {
+            background-image: url('/img/Home_BG.svg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
     </style>
 
 </head>
 <body>
-
+    @*<img id="backgroundSvg" src="~/img/Home_BG.svg" />*@
     <div>
-        <form asp-action="Search" method="post">
-            <div asp-validation-summary="All"></div>
-            <input id="search" name="search" type="text" placeholder="Enter search..." />
+        <img src="~/img/logo.png" />
+        <form asp-action="Result" method="post">
+            @*<div asp-validation-summary="All"></div>*@
+            @*<input id="search" name="search" type="text" placeholder="Enter search..." />*@
             <input id="city" name="city" type="text" placeholder="Enter city..." />
-            <button onclick="Search()" id="searchButton" type="submit" class="btn btn-info">Search</button>
+            <button @*onclick="Search()"*@ id="searchButton" type="submit" class="btn btn-info">Search</button>
         </form>
     </div>
     <br />
-    <div id="map"></div>
+    <div style="display: none;" id="map"></div>
 </body>
 </html>
 
@@ -45,13 +53,6 @@
     var request;
     var place;
     var city;
-
-    function Search() {
-        var search = $('#search').val();
-        var city = $('#city').val();
-        sessionStorage.setItem('search', search);
-        sessionStorage.setItem('city', city);
-    };
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -91,6 +92,7 @@
                 $.getJSON(GEOCODING).done(function (location) {
                     // Get City
                     city = location.results[0].address_components[2].long_name;
+                    $('#city').val(city);
                 });
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -131,14 +133,6 @@
                 bounds.extend(mark.getPosition());
             }
             map.fitBounds(bounds);
-
-            $.ajax({
-                url: "@Url.Action("GetCity")",
-                type: "POST",
-                data: JSON.stringify(city),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json"
-            });
 
             $.ajax({
                 url: "@Url.Action("AddStores")",

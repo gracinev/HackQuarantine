@@ -1,9 +1,8 @@
-﻿@model string[]
+﻿@model string
 @using HackQuarantine.Models;
 @{
     ViewData["Title"] = "Result";
-    string search = Model[0] == null ? "" : Model[0].ToLower();
-    string citySearch = Model[1];
+    string citySearch = Model;
 }
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <!DOCTYPE html>
@@ -18,18 +17,17 @@
 </head>
 <body>
     <div class="container">
-        @*<form action="/action_page.php">*@
-        <form asp-action="Search" method="post">
-            <div class="input-group">
-                <input type="hidden" class="form-control" placeholder="Search" name="city" id="city" value="@citySearch" />
-                <input type="text" class="form-control" placeholder="Search" name="search" id="search" value="@search" />
-                <div class="input-group-btn">
-                    <button class="btn btn-secondary" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+        @*<form asp-action="Search" method="post">*@
+        <div class="input-group">
+            <input type="hidden" class="form-control" placeholder="Search" name="city" id="city" value="@citySearch" />
+            <input type="text" class="form-control" placeholder="Search stores..." name="search" id="search" />
+            <div class="input-group-btn">
+                <button class="btn btn-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-        </form>
+        </div>
+        @*</form>*@
     </div>
     <br />
     <div class="container">
@@ -67,65 +65,60 @@
 
     @foreach (Store store in Repository._stores)
     {
-        //if (store.City.ToLower().Contains(citySearch))
-        //if (store.Items != null)
-        //{
-        //foreach (Item item in store.Items)
-        //{
-        if (/*store.Items.Name.Contains(search) || store.Name.ToLower().Contains(search) || */ String.IsNullOrEmpty(search))
-        {
-                <div id="card" class="card">
-                    <input id="inStock" type="hidden" @*value="@item.InStock.ToString()"*@ />
-                    <div class="card-header">
-                        <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+        <div id="card" class="card">
+            @if (store.Items != null)
+            {
+                foreach (var item in store.Items)
+                {
+                    <input id="inStock" type="hidden" value="@item.InStock.ToString()" />
+                }
+            }
+            <div class="card-header">
+                <h4><big>@store.Name</big> <small>@store.StoreType</small></h4>
+            </div>
+            <div style="margin-bottom: 10px" class="container borderline">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <p>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                if (i == Math.Floor(store.Rating) && store.Rating % 1 != 0)
+                                {
+                                    <i class="fas fa-star-half"></i>
+                                }
+                                else if (store.Rating > i)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            }
+                        </p>
+                        <p>@store.Address</p>
+                        <p>@store.Phone</p>
+                        <a href="https://@store.Website" target="_blank">@store.Website</a>
                     </div>
-                    <div style="margin-bottom: 10px" class="container borderline">
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item">
-                                <p>
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        if (i == Math.Floor(store.Rating) && store.Rating % 1 != 0)
-                                        {
-                                            <i class="fas fa-star-half"></i>
-                                        }
-                                        else if (store.Rating > i)
-                                        {
-                                            <i class="fas fa-star"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="far fa-star"></i>
-                                        }
-                                    }
-                                </p>
-                                @*<p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>*@
-                                <p>@store.Address</p>
-                                <p>@store.Phone</p>
-                                <a href="https://@store.Website" target="_blank">@store.Website</a>
+                    <div class="list-group-item">
+                        <div class="row justify-content-md-start">
+                            <div class="col-5">
+                                <button class="btn btn-danger btn-sm">
+                                    <small>Stock Status</small>
+                                </button>
                             </div>
-                            <div class="list-group-item">
-                                <div class="row justify-content-md-start">
-                                    <div class="col-5">
-                                        <button class="btn btn-danger btn-sm">
-                                            <small>Stock Status</small>
-                                        </button>
-                                    </div>
-                                    <div id ="storeRedirect" class="col-6 text-nowrap">
-                                        # comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
-                                        </svg>
-                                        <input id="id" type="hidden" value="@store.PlaceId" />
-                                    </div>
-                                </div>
-
+                            <div id="storeRedirect" class="col-6 text-nowrap">
+                                # comments & # photos <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd" />
+                                </svg>
+                                <input id="id" type="hidden" value="@store.PlaceId" />
                             </div>
                         </div>
+
                     </div>
                 </div>
-            //}
-            //}
-        }
+            </div>
+        </div>
     }
 
 
@@ -160,6 +153,25 @@
                 inStock = "True";
                 $("#keyword1").prependTo("#collapseDiv");
             }
+            if (inStock == "True" || soldOut == "True") {
+                $('.card').each(function (index, value) {
+                    if (index != 0) {
+                        //alert($(this).has('#inStock').length);
+                        if ($(this).has('#inStock').length == 0) {
+                            $(this).css("display", "none");
+                        }
+                    }
+                });
+            } else if (inStock == "False" || soldOut == "False") {
+                $('.card').each(function (index, value) {
+                    if (index != 0) {
+                        //alert($(this).has('#inStock').length);
+                        if ($(this).has('#inStock').length == 0) {
+                            $(this).css("display", "block");
+                        }
+                    }
+                });
+            }
             $('.card #inStock').each(function (index, value) {
                 if (inStock == 'True' && soldOut == "True") {
                     $(this).parent().css("display", "block");
@@ -167,7 +179,7 @@
                 else if (value.value == "False" && inStock == "True" && soldOut == "False") {
                     $(this).parent().css("display", "none");
                 }
-                else if (value.value == 'False' && soldOut == "True") {
+                else if (value.value == 'True' && soldOut == "True") {
                     $(this).parent().css("display", "none");
                 }
                 else {
@@ -184,14 +196,33 @@
                 soldOut = "True";
                 $("#keyword2").prependTo("#collapseDiv");
             }
+            if (inStock == "True" || soldOut == "True") {
+                $('.card').each(function (index, value) {
+                    if (index != 0) {
+                        //alert($(this).has('#inStock').length);
+                        if ($(this).has('#inStock').length == 0) {
+                            $(this).css("display", "none");
+                        }
+                    }
+                });
+            } else if (inStock == "False" || soldOut == "False") {
+                $('.card').each(function (index, value) {
+                    if (index != 0) {
+                        //alert($(this).has('#inStock').length);
+                        if ($(this).has('#inStock').length == 0) {
+                            $(this).css("display", "block");
+                        }
+                    }
+                });
+            }
             $('.card #inStock').each(function (index, value) {
                 if (inStock == 'True' && soldOut == "True") {
                     $(this).parent().css("display", "block");
                 }
-                else if (value.value == "True" && inStock == "True" && soldOut == "False") {
+                else if (value.value == "False" && inStock == "True" && soldOut == "False") {
                     $(this).parent().css("display", "none");
                 }
-                else if (value.value == 'False' && soldOut == "True") {
+                else if (value.value == 'True' && soldOut == "True") {
                     $(this).parent().css("display", "none");
                 }
                 else {
@@ -201,11 +232,11 @@
             });
         });
         //$('#search').val(window.sessionStorage.getItem('search'));
-        //$("#search").on("keyup", function () {
-        //    var value = $(this).val().toLowerCase();
-        //    $("div#card").filter(function () {
-        //        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        //    });
-        //});
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+           $("div#card").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
 </script>
