@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HackQuarantine.Models;
 
 namespace HackQuarantine.Models
 {
@@ -9,6 +10,7 @@ namespace HackQuarantine.Models
     {
         public static List<Store> _stores = GetTempStores().ToList();
         public static int ItemRequestCount { get; set; } = 3;
+        public static StockdDbContext DbContext { get; set; }
 
         public static void AddStore(GoogleStore storeRequest)
         {
@@ -49,8 +51,8 @@ namespace HackQuarantine.Models
             {
                 Date = DateTime.Now,
                 Notes = itemRequest.Notes,
-                Item = item,
-                Store = store
+                //Item = item,
+                //Store = store
             };
 
             store.Items.Add(item);
@@ -81,10 +83,11 @@ namespace HackQuarantine.Models
                 Id = commentRequest.Id,
                 Date = DateTime.Now,
                 Notes = commentRequest.Notes,
-                Item = item,
-                Store = store
+                //Item = item,
+                //Store = store
             };
             item.Comments.Add(tempComment);
+            DbContext.Comment.Add(tempComment);
         }
 
         public static IEnumerable<Store> GetTempStores()

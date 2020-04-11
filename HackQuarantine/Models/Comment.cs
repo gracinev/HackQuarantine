@@ -8,11 +8,13 @@ namespace HackQuarantine.Models
     public class Comment
     {
         public int Id { get; set; }
+        public int ItemId { get; set; }
+        public string PlaceId { get; set; }
         public DateTime Date { get; set; }
         public string Notes { get; set; }
         public Item Item { get; set; }
-        public Store Store { get; set; }
-        public User User { get; set; }
+        //public Store Store { get; set; }
+        //public User User { get; set; }
 
         public Comment()
         {
@@ -23,8 +25,8 @@ namespace HackQuarantine.Models
         {
             Date = date;
             Item = item;
-            Store = store;
-            User = user;
+            //Store = store;
+            //User = user;
         }
     }
 }

@@ -29,9 +29,34 @@ namespace HackQuarantine.Controllers
         public static string City { get; set; }
         private static int StoreId { get; set; }
         public static Store TempObj { get; set; }
+        private readonly StockdDbContext _context;
+
+        public HomeController(StockdDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
+            //Item item = new Item()
+            //{
+            //    Id = 0,
+            //    Name = "idk",
+            //    Price = 2,
+            //    InStock = true,
+            //    SaleStatus = SaleStatus.HighQuantity
+            //};
+            //Comment comment = new Comment()
+            //{
+            //    Id = 0,
+            //    ItemId = 1,
+            //    PlaceId = "hello",
+            //    Date = DateTime.Now,
+            //    Notes = "AAAAAAA"
+            //};
+            //_context.Item.Add(item);
+            //_context.Comment.Add(comment);
+            //_context.SaveChanges();
             return View();
         }
 
