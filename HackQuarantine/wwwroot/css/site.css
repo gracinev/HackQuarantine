@@ -97,6 +97,11 @@ body {
     background-color: #FDD1C7;
 }
 
-.container .borderline {
+.card .card-body {
     background-color: #fff3f0;
+}
+
+.btn-custom {
+    background-color: #ff8d71;
+    color: white;
 }
