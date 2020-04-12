@@ -79,7 +79,8 @@ namespace HackQuarantine.Models
                     break;
             }
             item.InStock = commentRequest.InStock == "true" ? true : false;
-            Comment tempComment = new Comment() { 
+            Comment tempComment = new Comment()
+            {
                 Id = commentRequest.Id,
                 Date = DateTime.Now,
                 Notes = commentRequest.Notes,
@@ -97,71 +98,25 @@ namespace HackQuarantine.Models
                 new Store()
                 {
                     Id = 0,
+                    PlaceId = "Test1",
                     Name = "Costco",
                     City = "San Francisco",
                     Address = "123 Huckleberry Drive, New York City, New York",
                     Phone = "1234567890",
-                    Rating = 3,
-                    Items = new List<Item>()
-                    {
-                        new Item()
-                        {
-                            Id = 0,
-                            Name = "Soap",
-                            InStock = true,
-                            SaleStatus = SaleStatus.MediumQuantity,
-                            Price = 10.99,
-                            Comments = new List<Comment>()
-                            {
-                                new Comment()
-                                {
-                                    Date = DateTime.Now,
-                                    Notes = "This is cool!",
-                                    Item = new Item() {
-                                        Name = "Soap",
-                                        InStock = true,
-                                        SaleStatus = SaleStatus.MediumQuantity,
-                                        Price = 10.99
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    Rating = 3
+
+
                 },
                 new Store()
                 {
                     Id = 1,
+                    PlaceId = "Test2",
                     Name = "Target",
                     City = "San Francisco",
                     Address = "Somewhere in California",
                     Phone = "1234567890",
                     Rating = 5,
-                    Items = new List<Item>()
-                    {
-                        new Item()
-                        {
-                            Id = 2,
-                            Name = "Toilet Paper",
-                            InStock = false,
-                            SaleStatus = SaleStatus.LowQuantity,
-                            Price = 8.99,
-                            Comments = new List<Comment>()
-                            {
-                                new Comment()
-                                {
-                                    Date = DateTime.Now,
-                                    Notes = "Test Comment",
-                                    Item = new Item()
-                                    {
-                                        Name = "Toilet Paper",
-                                        InStock = false,
-                                        SaleStatus = SaleStatus.LowQuantity,
-                                        Price = 8.99
-                                    }
-                                }
-                            }
-                        }
-                    }
+
                 }
             };
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HackQuarantine.Migrations
 {
     [DbContext(typeof(StockdDbContext))]
-    [Migration("20200411024640_Initial")]
+    [Migration("20200411221601_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace HackQuarantine.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlaceId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")

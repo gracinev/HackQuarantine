@@ -13,6 +13,7 @@ namespace HackQuarantine.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     InStock = table.Column<bool>(nullable: false),
                     Price = table.Column<double>(nullable: false),
